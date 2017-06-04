@@ -2,21 +2,19 @@
 
 Lightweight [Docker image](https://hub.docker.com/r/stead/imaginary-alpine/) for image processing service [Imaginary](https://github.com/h2non/imaginary).
 
-I've built this a few differnt ways to find the most optimal.
+I've built two differnt ways to find the most optimal.
 
-- `Dockerfile`: Single Dockerfile which compiles binaries and then attempts to cleanup build dependencies.
-- `Dockerfile.1build` + `Dockerfile.2release`: Uses `build.sh` to first build the binaries then copy them over to a clean image.
-- `Dockerfile.multi`: Same as previous but in a single [multi-stage](https://docs.docker.com/engine/userguide/eng-image/multistage-build) Dockerfile. Support coming in Docker 17.05.
+- [Dockerfile](/Dockerfile): Single Dockerfile which compiles binaries and then attempts to cleanup build dependencies.
+- [Dockerfile.multi](Dockerfile.multi): Single [multi-stage](https://docs.docker.com/engine/userguide/eng-image/multistage-build) Dockerfile, compiling binaries and then copying them into clean Alpine image. Support for multi-part Dockerfile's coming in Docker 17.05.
 
 #### Image Sizes
 
-- `Dockerfile`: 101mb
-- `Dockerfile.1build` + `Dockerfile.2release`: 56mb, 21mb compressed
-- `Dockerfile.multi`: 56mb, 21mb compressed
+- [Dockerfile](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile): `101mb`, `58mb` compressed
+- [Dockerfile.multi](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile.multi): `56mb`, `21mb` compressed
 
 ## Usage
 
-See [Imaginary](https://github.com/h2non/imaginary) readme for full usage.
+See [Imaginary](https://github.com/h2non/imaginary#command-line-usage) readme for full usage.
 
 #### Example
 
