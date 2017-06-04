@@ -2,15 +2,15 @@
 
 Lightweight [Docker image](https://hub.docker.com/r/stead/imaginary-alpine/) for image processing service [Imaginary](https://github.com/h2non/imaginary).
 
-I've built two differnt ways to find the most optimal.
+Built two different ways to find the most optimal.
 
-- [Dockerfile](/Dockerfile): Single Dockerfile which compiles binaries and then attempts to cleanup build dependencies.
-- [Dockerfile.multi](Dockerfile.multi): Single [multi-stage](https://docs.docker.com/engine/userguide/eng-image/multistage-build) Dockerfile, compiling binaries and then copying them into clean Alpine image. Support for multi-part Dockerfile's coming in Docker 17.05.
+- [Dockerfile](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile): Single Dockerfile which compiles binaries and then attempts to cleanup build dependencies.
+- [Dockerfile.multi](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile.multi): Single [multi-stage](https://docs.docker.com/engine/userguide/eng-image/multistage-build) Dockerfile, compiling binaries and then copying them into clean Alpine image. Support for multi-part Dockerfile's coming in Docker 17.05.
 
 #### Image Sizes
 
 - [Dockerfile](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile): `101mb`, `58mb` compressed
-- [Dockerfile.multi](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile.multi): `56mb`, `21mb` compressed
+- [Dockerfile.multi](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile.multi): `56mb`, `20mb` compressed
 
 ## Usage
 
