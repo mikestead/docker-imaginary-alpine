@@ -10,7 +10,7 @@ Built two different ways to find the most optimal.
 #### Image Sizes
 
 - [Dockerfile](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile): `101mb`, `58mb` compressed
-- [Dockerfile.multi](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile.multi): `56mb`, `20mb` compressed
+- [Dockerfile.multi](https://github.com/mikestead/docker-imaginary-alpine/blob/master/Dockerfile.multi): `64mb`, `23mb` compressed
 
 ## Usage
 
