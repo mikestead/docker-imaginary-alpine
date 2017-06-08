@@ -13,17 +13,14 @@ RUN apk update && apk add --no-cache openssl ca-certificates && mkdir -p ${GOPAT
     apk update && apk upgrade && apk add --no-cache --virtual .build-dependencies \
         build-base \
         zlib-dev libxml2-dev glib-dev gobject-introspection-dev \
-        libjpeg-turbo-dev libexif-dev lcms2-dev giflib-dev libpng-dev \
+        libjpeg-turbo-dev libexif-dev lcms2-dev fftw-dev giflib-dev libpng-dev \
         libwebp-dev orc-dev tiff-dev poppler-dev librsvg-dev libgsf-dev openexr-dev \
         go git glide@edge && \
     cd /tmp/vips-${VIPS_VERSION} && \
-    CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0" ./configure \
-        --disable-debug \
+    ./configure \
         --disable-static \
-        --disable-introspection \
         --disable-dependency-tracking \
-        --without-python \
-        --without-orc && \
+        --without-python && \
     make && \
     make install && \
 
@@ -38,7 +35,7 @@ RUN apk update && apk add --no-cache openssl ca-certificates && mkdir -p ${GOPAT
 
     apk add --no-cache \
     zlib libxml2 glib gobject-introspection \
-    libjpeg-turbo libexif lcms2 giflib libpng \
+    libjpeg-turbo libexif lcms2 fftw giflib libpng \
     libwebp orc tiff poppler-glib librsvg libgsf openexr && \
 
     rm -rf /var/cache/apk/*
