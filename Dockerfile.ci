@@ -8,8 +8,8 @@ RUN apk update && apk add --no-cache openssl ca-certificates && mkdir -p ${GOPAT
     apk update && apk upgrade && apk add --no-cache --virtual .build-dependencies \
         build-base \
         zlib-dev libxml2-dev glib-dev gobject-introspection-dev \
-        libjpeg-turbo-dev libexif-dev lcms2-dev giflib-dev libpng-dev \
-        libwebp-dev fftw-dev orc-dev tiff-dev poppler-dev librsvg-dev libgsf-dev openexr-dev \
+        libjpeg-turbo-dev libexif-dev lcms2-dev fftw-dev giflib-dev libpng-dev \
+        libwebp-dev orc-dev tiff-dev poppler-dev librsvg-dev libgsf-dev openexr-dev \
         git glide@edge && \
     cd /tmp/vips-${VIPS_VERSION} && \
     ./configure \
