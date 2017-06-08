@@ -4,7 +4,6 @@ ARG VIPS_VERSION=8.5.5
 
 RUN apk update && apk add --no-cache openssl ca-certificates && mkdir -p ${GOPATH}/src && \
     wget -O- https://github.com/jcupitt/libvips/releases/download/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz | tar xzC /tmp && \
-    wget -O- https://github.com/h2non/imaginary/archive/v${IMAGINARY_VERSION}.tar.gz | tar xzC ${GOPATH}/src && \
     echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
     apk update && apk upgrade && apk add --no-cache --virtual .build-dependencies \
         build-base \
