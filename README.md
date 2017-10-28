@@ -2,7 +2,7 @@
 
 Lightweight [Docker image](https://hub.docker.com/r/stead/imaginary-alpine/) for image processing service [Imaginary](https://github.com/h2non/imaginary).
 
-Image size: `64mb`, `23mb` compressed.
+Image size is `24mb` compressed.
 
 ## Usage
 
