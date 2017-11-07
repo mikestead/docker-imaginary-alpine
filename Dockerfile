@@ -1,26 +1,19 @@
-FROM alpine:edge as builder
+FROM golang:1.9.2-alpine3.6 as builder
 
 ARG VIPS_VERSION=8.5.9
-ARG IMAGINARY_VERSION=1.0.8
+ARG IMAGINARY_VERSION=1.0.10
 
-ENV GOROOT=/usr/lib/go \
-    GOPATH=/tmp/go \
-    PATH=/go/bin:$PATH \
-    VIPS_DIR=/vips
-
+ENV VIPS_DIR=/vips
 ENV PKG_CONFIG_PATH=${VIPS_DIR}/lib/pkgconfig:$PKG_CONFIG_PATH
 
 RUN apk update && apk add --no-cache openssl ca-certificates && mkdir -p ${GOPATH}/src && \
     wget -O- https://github.com/jcupitt/libvips/releases/download/v${VIPS_VERSION}/vips-${VIPS_VERSION}.tar.gz | tar xzC /tmp && \
     wget -O- https://github.com/h2non/imaginary/archive/v${IMAGINARY_VERSION}.tar.gz | tar xzC ${GOPATH}/src && \
-    echo "@edge http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
+    echo "@testing http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories  && \
     apk update && apk upgrade && apk add --no-cache \
-        build-base \
-        zlib-dev libxml2-dev glib-dev gobject-introspection-dev \
-        libjpeg-turbo-dev libexif-dev lcms2-dev fftw-dev giflib-dev libpng-dev \
-        libwebp-dev orc-dev tiff-dev poppler-dev librsvg-dev libgsf-dev openexr-dev \
-        go git glide@edge && \
-    cd /tmp/vips-${VIPS_VERSION} && \
+    build-base git vips-dev@testing gobject-introspection-dev
+
+RUN cd /tmp/vips-${VIPS_VERSION} && \
     ./configure \
         --disable-static \
         --disable-dependency-tracking \
@@ -29,23 +22,21 @@ RUN apk update && apk add --no-cache openssl ca-certificates && mkdir -p ${GOPAT
     make && \
     make install && \
     cd ${GOPATH}/src/imaginary-${IMAGINARY_VERSION} && \
-    glide install && \
+    go get -u github.com/golang/dep/cmd/dep && \
+    dep ensure && \
     go build -o $GOPATH/bin/imaginary
 
-
-FROM alpine:edge
+FROM alpine:3.6
 
 RUN apk update \
     apk upgrade && \
+    echo "@testing http://dl-3.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories && \
     apk add --no-cache \
-        openssl ca-certificates \
-        zlib libxml2 glib gobject-introspection \
-        libjpeg-turbo libexif lcms2 fftw giflib libpng \
-        libwebp orc tiff poppler-glib librsvg libgsf openexr && \
+        openssl ca-certificates gobject-introspection vips@testing && \
     rm -rf /var/cache/apk/*
 
 COPY --from=builder /vips/lib/ /usr/local/lib
-COPY --from=builder /tmp/go/bin/imaginary /usr/bin/imaginary
+COPY --from=builder /go/bin/imaginary /usr/bin/imaginary
 
 ENV PORT 9000
 EXPOSE 9000
